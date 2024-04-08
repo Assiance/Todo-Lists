@@ -33,4 +33,16 @@ router.post('/', async (req, res) => {
     }
 })
 
+router.delete('/:id', async (req, res) => {
+    try {
+        const todoList = await TodoLists.findByPk(req.params.id);
+        await todoList.destroy();
+        
+        res.status(204).send();
+    } catch (error) {
+        console.log(error);
+        res.status(500).send(`Internal Server Error ${error}`)
+    }
+})
+
 module.exports = router;

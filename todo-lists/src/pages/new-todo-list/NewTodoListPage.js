@@ -1,12 +1,10 @@
 import { useState } from "react";
-import TodoList from "../../components/todo-list/TodoList";
+import { useNavigate } from "react-router-dom";
 
 function NewTodoListPage() {
-  const [data, setData] = useState({
-    title: '',
-    description: ''
-  });
-  //const [description, setDescription] = useState('');
+  const navigate = useNavigate();
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
 
   return (
     <div>
@@ -17,12 +15,12 @@ function NewTodoListPage() {
 
       <div>
         <label>Title</label>
-        <input type="text" placeholder="Enter Todolist title" value={data.title} onChange={(e) => { setData(e.target.value) }}></input>
+        <input type="text" placeholder="Enter Todolist title" value={title} onChange={(e) => { setTitle(e.target.value) }}></input>
       </div>
 
       <div>
         <label>Description</label>
-        <input type="text" placeholder="Enter Todolist description" value={data.description} onChange={(e) => { setData(e.target.value) }}></input>
+        <input type="text" placeholder="Enter Todolist description" value={description} onChange={(e) => { setDescription(e.target.value) }}></input>
       </div>
 
       <div>
@@ -37,17 +35,20 @@ function NewTodoListPage() {
       const url = `http://localhost:4000/todos`;
 
       const options = {
-        method: 'POST'
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: title, description: description })
       }
 
       try {
         const response = await fetch(url, options);
         const data = await response.json()
         console.log(data);
+        navigate('/todos')
       } catch (error) {
         console.error(error);
       }
-      setData(data);
+
     }
     asyncPostTodos();
   }
