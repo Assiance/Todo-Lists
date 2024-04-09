@@ -1,16 +1,39 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 function NewTodoListPage() {
   const navigate = useNavigate();
+  const { id } = useParams();
+
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+
+  useEffect(() => {
+    // Add request to pull in data for a specific todo list
+    const asyncGetTodoListById = async () => {
+      const url = `http://localhost:4000/todos/${id}`;
+
+      try {
+        //Fill this in
+
+        setTitle("Tiger");
+        setDescription("Tiger is the largest cat species");
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    if (id) {
+      asyncGetTodoListById();
+    }
+  }, []);
 
   return (
     <div>
 
       <div>
-        <h1>New Todo List</h1>
+        {id ? <h1>Update Todolist</h1> : <h1>Create Todolist</h1>}
       </div>
 
       <div>
@@ -24,13 +47,14 @@ function NewTodoListPage() {
       </div>
 
       <div>
-        <button type="submit" className="btn btn-primary" onClick={postTodos}>Submit List</button>
+        <button type="submit" className="btn btn-primary" onClick={addOrUpdateTodos}>Submit List</button>
       </div>
 
     </div>
   )
 
-  function postTodos() {
+  function addOrUpdateTodos() {
+    
     const asyncPostTodos = async () => {
       const url = `http://localhost:4000/todos`;
 
@@ -48,9 +72,14 @@ function NewTodoListPage() {
       } catch (error) {
         console.error(error);
       }
-
     }
-    asyncPostTodos();
+
+    if (id) {
+      //update
+    }
+    else {
+      asyncPostTodos();
+    }
   }
 }
 

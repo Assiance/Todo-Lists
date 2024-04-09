@@ -13,6 +13,7 @@ function App() {
             <Route path='/' element={<HomePage />} />
             <Route path='/todos' element={<TodoListsPage />} />
             <Route path='/todos/new' element={<NewTodoListPage />} />
+            <Route path='/todos/update/:id' element={<NewTodoListPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
