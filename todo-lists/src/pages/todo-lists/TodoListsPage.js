@@ -41,7 +41,8 @@ function TodoListsPage() {
 
         await fetch(url, options);
 
-        setTodoLists([])
+        let updateTodos = todoLists.filter(todoList => todoList.id !== id);
+        setTodoLists(updateTodos)
       } catch (error) {
         console.error(error);
       }

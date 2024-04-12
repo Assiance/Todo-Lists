@@ -14,7 +14,7 @@ function NewTodoListPage() {
       const url = `http://localhost:4000/todos/${id}`;
 
       try {
-        //Fill this in
+        //HOMEWORK: Fill this in
 
         setTitle("Tiger");
         setDescription("Tiger is the largest cat species");
@@ -75,7 +75,7 @@ function NewTodoListPage() {
     }
 
     if (id) {
-      //update
+      //HOMEWORK: update
     }
     else {
       asyncPostTodos();
